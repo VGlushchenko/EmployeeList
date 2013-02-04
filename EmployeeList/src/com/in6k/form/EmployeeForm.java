@@ -26,16 +26,16 @@ public class EmployeeForm {
         if (!isValid(name, NAME_PATTERN)) {
         	errors.add("Name is not valid");
         }
-        else if (!isValid(lastName, NAME_PATTERN)) {
+        if (!isValid(lastName, NAME_PATTERN)) {
         	errors.add("Last Name is not valid");
         }
-        else if (!isValid(email, EMAIL_PATTERN)) {
+        if (!isValid(email, EMAIL_PATTERN)) {
         	errors.add("Email is not valid");
         }
-		else if (isValid(password, PASSWORD_PATTERN) && password == passwordConfirmation) {
+		if (isValid(password, PASSWORD_PATTERN) && password == passwordConfirmation) {
 			errors.add("Password is not valid");
 		}
-        else if (!isValid(birthDate, BIRTH_DATE_PATTERN)) {
+        if (!isValid(birthDate, BIRTH_DATE_PATTERN)) {
         	errors.add("Birth Date is not valid");
         }
 

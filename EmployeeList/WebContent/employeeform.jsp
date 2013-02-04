@@ -31,10 +31,20 @@
 		    <input type="password" name="passwordConfirmation" value=""><br>
 		    Birth Date<br>
 		    <input type="text" name="birthDate" value="<c:out value="${form.birthDate}" />"><br>
+		    <p>
+			    Save to:<br>
+			    <input type="radio" name="providertype" value="XML" checked="checked"> XML<br>
+			    <input type="radio" name="providertype" value="DB"> Data Base<br>
+  			</p>
 		    <input type="submit" value="Add"><br>
 		</form>
 		
 		<form action="./employeeform" method="GET">
+			<p>
+			    List from:<br>
+			    <input type="radio" name="providertype" value="XML" checked="checked"> XML File<br>
+			    <input type="radio" name="providertype" value="DB"> Data Base<br>
+  			</p>
 		    <input type="submit" value="View list"><br>
 		</form>
 		

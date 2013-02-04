@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,7 +23,7 @@ public class XmlProvider implements DataProvider {
     public void save(Identifier identifier) throws IOException {
        
     	 try {
-            FileOutputStream fos = new FileOutputStream("C:\\\\" + identifier.getIdentifier() + ".xml");
+            FileOutputStream fos = new FileOutputStream("C:\\\\xml\\" + identifier.getIdentifier() + ".xml");
 
             try {
                 XMLEncoder xmlEncoder = new XMLEncoder(fos);
@@ -58,7 +59,7 @@ public class XmlProvider implements DataProvider {
     }
     
     @Override
-	public Collection<EmployeeModel> load() throws IOException {
+	public Collection<Identifier> load() throws IOException, SQLException {
 		File dir = new File("C:\\\\xml\\");
         File [] files = dir.listFiles(new FilenameFilter() {
             @Override
@@ -67,7 +68,7 @@ public class XmlProvider implements DataProvider {
             }
         });
         
-        Collection<EmployeeModel> employeeList = new ArrayList<EmployeeModel>();
+        Collection<Identifier> employeeList = new ArrayList<Identifier>();
         
         for(File file : files) {
         	EmployeeModel em = loadFromFile(file);

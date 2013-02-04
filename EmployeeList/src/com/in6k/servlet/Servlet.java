@@ -1,6 +1,7 @@
 package com.in6k.servlet;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,15 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.in6k.domain.EmployeeModel;
 import com.in6k.form.EmployeeForm;
+import com.in6k.persistence.Identifier;
 import com.in6k.persistence.ProviderFactory;
 
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	Collection<EmployeeModel> employeeList;
+    	Collection<Identifier> employeeList = null;
     	
-    	employeeList = (new EmployeeModel(ProviderFactory.ProviderType.XML)).load();
+        String type = request.getParameter("providertype");
+        ProviderFactory.ProviderType providerType = (type.equals("XML")) ? ProviderFactory.ProviderType.XML : ProviderFactory.ProviderType.DB; 
+    	
+    	try {
+			employeeList = (new EmployeeModel(providerType)).load();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     	
     	request.setAttribute("employers", employeeList.toArray());
     	request.setAttribute("size", employeeList.size());
@@ -48,13 +57,18 @@ public class Servlet extends HttpServlet {
             request.getRequestDispatcher("/employeeform.jsp").include(request, response);
             return;
         }
-
-        EmployeeModel em = new EmployeeModel(ef, ProviderFactory.ProviderType.XML);
+        
+        
+        String type = request.getParameter("providertype");
+        
+        ProviderFactory.ProviderType providerType = (type.equals("XML")) ? ProviderFactory.ProviderType.XML : ProviderFactory.ProviderType.DB; 
+        
+        EmployeeModel em = new EmployeeModel(ef, providerType);
         em.save();
+    	
+		request.setAttribute("form", em);
 
         request.getRequestDispatcher("./success.jsp").forward(request, response);
     }
-
-    
 
 }

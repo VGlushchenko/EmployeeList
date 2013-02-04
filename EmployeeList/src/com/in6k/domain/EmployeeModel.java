@@ -1,6 +1,7 @@
 package com.in6k.domain;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import com.in6k.form.EmployeeForm;
@@ -8,7 +9,8 @@ import com.in6k.persistence.Identifier;
 import com.in6k.persistence.ProviderFactory;
 
 public class EmployeeModel implements Identifier {
-    String name;
+	Long id;
+	String name;
     String lastName;
     String email;
     String password;
@@ -32,8 +34,18 @@ public class EmployeeModel implements Identifier {
         
         this.providerType = providerType;
     }
+    
+    
 
-    public String getName() {
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
         return name;
     }
 
@@ -77,7 +89,7 @@ public class EmployeeModel implements Identifier {
         ProviderFactory.create(providerType).save(this);
     }
     
-    public Collection<EmployeeModel> load() throws IOException {
+    public Collection<Identifier> load() throws IOException, SQLException {
     	return ProviderFactory.create(providerType).load();
     }
 
