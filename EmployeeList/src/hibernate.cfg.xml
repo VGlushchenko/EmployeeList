@@ -15,10 +15,6 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <!-- Вывод в консоль SQL-запросов -->
         <property name="show_sql">true</property>
-        <!-- Подключение объектов сущностей -->
-        <!-- <mapping package="ua.ck.geekhub.entity"/>
-        <mapping class="ua.ck.geekhub.entity.User"/>
-        <mapping class="ua.ck.geekhub.entity.Group"/> -->
         
         <mapping resource="Employee.hbm.xml"/>
 	</session-factory>
